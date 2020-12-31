@@ -1,0 +1,22 @@
+﻿<Window x:Class="Calculator_NEW.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator_NEW"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="526" Width="479" ContentStringFormat="1">
+    <Grid>
+        <TextBox x:Name="Display_Box" HorizontalAlignment="Left" Height="84" Margin="36,24,0,0" Text="Display" TextWrapping="Wrap" VerticalAlignment="Top" Width="334" TextChanged="TextBox_TextChanged_1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox HorizontalAlignment="Left" Height="34" Margin="386,24,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="72"/>
+        <TextBox HorizontalAlignment="Left" Height="32" Margin="386,76,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="72"/>
+        <Button x:Name="Buton1" Content="1" HorizontalAlignment="Left" Height="60" Margin="43,125,0,0" VerticalAlignment="Top" Width="60" Click="Button_Click"/>
+        <Button x:Name="Buton2" Content="2" HorizontalAlignment="Left" Height="60" Margin="108,125,0,0" VerticalAlignment="Top" Width="60" Click="Buton2_Click"/>
+        <Button x:Name="Buton3" Content="3" HorizontalAlignment="Left" Height="60" Margin="173,125,0,0" VerticalAlignment="Top" Width="60" Click="Buton3_Click"/>
+        <Button x:Name="Buton_Del" Content="/" HorizontalAlignment="Left" Height="60" Margin="257,125,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button x:Name="Buton_Sum" Content="*" HorizontalAlignment="Left" Height="60" Margin="257,190,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button x:Name="Buton_Plus" Content="+" HorizontalAlignment="Left" Height="60" Margin="257,255,0,0" VerticalAlignment="Top" Width="60" Click="Buton_2_Click"/>
+        <Button x:Name="Buton_Minus" Content="-" HorizontalAlignment="Left" Height="60" Margin="257,320,0,0" VerticalAlignment="Top" Width="60" Click="Buton_3_Click"/>
+        <Button x:Name="Buton_Equal" Content="=" HorizontalAlignment="Left" Height="60" Margin="257,385,0,0" VerticalAlignment="Top" Width="60"/>
+    </Grid>
+</Window>
