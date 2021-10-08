@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using SautinSoft.Document;
+
+namespace Find_Text
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string filePath0= @"D:\TESTS\";
+
+            string nameApplication1= "Test_Prilojenie1.docx";
+            string nameApplication11 = "Test_Prilojenie11.docx";
+            string nameApplication13 = "Test_Prilojenie13.docx";
+
+            string filePath1 = filePath0 + nameApplication1;
+            string filePath11 = filePath0 + nameApplication11;
+            string filePath13 = filePath0 + nameApplication13;
+
+            //string filePath1 = @"D:\TESTS\Test_Prilojenie1.docx";
+            // string filePath11 = @"D:\TESTS\Test_Prilojenie11.docx";
+            // string filePath13 = @"D:\TESTS\Test_Prilojenie13.docx";
+
+            List<string> filesPaths = new List<string>();
+            filesPaths.Add(filePath1);
+            filesPaths.Add(filePath11);
+            filesPaths.Add(filePath13);
+
+
+            Dictionary<int, string> components = new Dictionary<int, string>();
+            components.Add(101, "Юлиан");
+            components.Add(102, "Валентинов");
+            components.Add(103, "Вълкasdsанов");
+            components.Add(104, "Управител");
+            components.Add(105, "Ивени ЕООД");
+            components.Add(106, "84984485485");
+            components.Add(107, "№ 5454564545");
+            components.Add(108, "8949846488654");
+            components.Add(109, "iulian.valkanov@gmail.com");
+            components.Add(110, "Телефон");
+            components.Add(111, "01.02.2021");
+            components.Add(112, "Фирмено седалище asd asdasdasd");
+            components.Add(113, "Наименование на проекта #Podavane");
+
+            string currentApplicationPath = "";
+            string fileResult = "";
+            int count = 0;
+
+            foreach (var filePath in filesPaths)
+            {
+                count++;
+                currentApplicationPath = filePath;
+
+                fileResult = filePath0 +"("+count+")" + "Prilojenie.docx";
+
+                FindAndReplace(components, currentApplicationPath, fileResult);
+            }
+
+
+             
+
+            //  string currentApplicationPath = filePath13;
+            // string fileResult = @"D:\TESTS\TEST_Result.docx";
+            //FindAndReplace(components, currentApplicationPath, fileResult);
+        }
+
+        private static void FindAndReplace(Dictionary<int, string> components, string currentApplicationPath, string fileResult)
+        {
+
+            DocumentCore dc = DocumentCore.Load(currentApplicationPath);
+
+            foreach (var component in components)
+            {
+                foreach (Paragraph par in dc.GetChildElements(true, ElementType.Paragraph))
+                    foreach (ContentRange items in par.Content.Find(component.Key.ToString()).Reverse())
+                    {
+                        items.Replace(component.Value.ToString());
+                    }
+            }
+
+            dc.Save(fileResult);
+           
+        }
+
+        static void FindAndReplaceInParagraphs()
+        {
+            
+           
+
+
+           // string filePath = @"D:\TESTS\TEST_Prilojenie11.docx";
+
+          //  string fileResult = @"D:\TESTS\TEST_Result.docx";
+
+           // DocumentCore dc = DocumentCore.Load(filePath);
+
+           // foreach (var component in components)
+            //{
+            //    foreach (Paragraph par in dc.GetChildElements(true, ElementType.Paragraph))
+            //        foreach (ContentRange items in par.Content.Find(component.Key.ToString()).Reverse())
+            //        {
+             //           items.Replace(component.Value.ToString());
+             //       }
+           // }
+           
+
+           // dc.Save(fileResult);
+           // System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(filePath) { UseShellExecute = true });
+           // System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(fileResult) { UseShellExecute = true });
+        }
+
+
+
+
+      
+
+      
+    }
+}
