@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using SautinSoft.Document;
+
+namespace Find_Text
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+           List<string> fileNames = new List<string>();
+            fileNames.Add("Prilojenie1");
+            fileNames.Add("Prilojenie11");
+            fileNames.Add("Prilojenie13");
+
+            foreach (var fileName in fileNames)
+            {
+                string pathDirectoy = @"D:\Applications_Yuli\Program_2.089\";
+                string fileFormat = ".docx";
+                string pathApplication = pathDirectoy + fileName + fileFormat;
+
+                string pathApplicatinResult = pathDirectoy + fileName + "_filled" + fileFormat;
+
+                Dictionary<int, string> components = new Dictionary<int, string>();
+                components.Add(101, "Зорница"); //Име
+                components.Add(102, "Петрова"); //Презиме
+                components.Add(103, "Бойчева"); //Фамилия
+                components.Add(104, "Управител"); //Управител, Изп. Директор
+                components.Add(105, "Ивени Консулт ЕООД"); //Име на фирма
+                components.Add(106, "84984485485"); //ЕИК
+                components.Add(107, "№5454564545"); //№ на договор
+                components.Add(108, "8949846488654"); //ЕГН
+                components.Add(109, "iulian.valkanov@gmail.com"); // И-мейл
+                components.Add(110, "0886280128"); //Телефон
+                components.Add(111, "01.02.2021"); //Дата на документ
+                components.Add(112, "Фирмено седалище Студентски Грдад"); //Седалище и адрес на управление
+                components.Add(113, "Наименование на проекта 2,089");  //Наименование на проект
+
+                FindAndReplace(components, pathApplication, pathApplicatinResult);
+            }
+
+                      
+        }
+
+        private static void FindAndReplace(Dictionary<int, string> components, string pathApplication, string pathApplicatinResult)
+        {
+
+            DocumentCore dc = DocumentCore.Load(pathApplication);
+
+            foreach (var component in components)
+            {
+                foreach (Paragraph par in dc.GetChildElements(true, ElementType.Paragraph))
+                    foreach (ContentRange items in par.Content.Find(component.Key.ToString()).Reverse())
+                    {
+                        items.Replace(component.Value.ToString());
+                    }
+            }
+
+            dc.Save(pathApplicatinResult);
+           
+        }
+
+            
+    }
+}
