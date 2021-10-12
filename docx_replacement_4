@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using SautinSoft.Document;
+
+namespace Find_Text
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+           List<string> fileNames = new List<string>();
+          
+            fileNames.Add("Prilojenie1");
+            fileNames.Add("Prilojenie11");
+            fileNames.Add("Prilojenie13");
+
+            foreach (var fileName in fileNames)
+            {
+                string pathDirectoy = @"D:\Applications_Yuli\Program_2.089\";
+                string fileFormat = ".docx";
+                string fileFormatResult = ".docx";
+                string pathApplication = pathDirectoy + fileName + fileFormat;
+
+                string pathApplicatinResult = pathDirectoy + fileName + "_filled" + fileFormatResult;
+
+                Dictionary<int, string> components = new Dictionary<int, string>();
+                components.Add(101, "МАРИЕТА"); //Име
+                components.Add(102, "СТЕФАНОВА"); //Презиме
+                components.Add(103, "СТОЙКОВА"); //Фамилия
+                components.Add(104, "Управител"); //Управител, Изп. Директор
+                components.Add(105, "КЕНТАВЪР ТРЕЙДИНГ СПС ЕООД"); //Име на фирма
+                components.Add(106, "200385480"); //ЕИК
+                components.Add(107, "BG16RFOP002-2.089-1954"); //реф.№ на договор
+                components.Add(108, "6707152254"); //ЕГН
+                components.Add(109, "pompeabg@abv.bg"); // И-мейл
+                components.Add(110, "0888702408"); //Телефон
+                components.Add(111, "11.10.2021"); //Дата на документ
+                components.Add(112, "гр. София, Район р-н Студентски, Квартал Мусагеница, Бл. 93, Вход Б, Ет. 8, Ап. 104;"); //Седалище и адрес на управление
+                components.Add(113, "BG16RFOP002-2.089 „Подкрепа за малки предприятия с оборот над 500 000 лв. за преодоляване на икономическите последствия от пандемията COVID-19“");  //Наименование на проект
+
+                FindAndReplace(components, pathApplication, pathApplicatinResult);
+            }
+
+                      
+        }
+
+        private static void FindAndReplace(Dictionary<int, string> components, string pathApplication, string pathApplicatinResult)
+        {
+
+            DocumentCore dc = DocumentCore.Load(pathApplication);
+
+            foreach (var component in components)
+            {
+                foreach (Paragraph par in dc.GetChildElements(true, ElementType.Paragraph))
+                    foreach (ContentRange items in par.Content.Find(component.Key.ToString()).Reverse())
+                    {
+                        items.Replace(component.Value.ToString());
+                    }
+            }
+
+            dc.Save(pathApplicatinResult);
+           
+        }
+
+      
+
+
+
+
+      
+
+        
+    }
+}
