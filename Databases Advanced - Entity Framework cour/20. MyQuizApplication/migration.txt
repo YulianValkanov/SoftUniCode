@@ -1,0 +1,7 @@
+Package Manager Console
+
+Default project: MyQuizApplication.Infrastructure
+
+add-migration NAME
+
+update-database
